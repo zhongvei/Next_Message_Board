@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { Container, Row, Col, Form, FormGroup, Input } from 'reactstrap'
 import Socket from './utilities/Socket'
+
 
 const App = () => {
   const [message, setMessage] = useState('')
   const [username, SetUsername] = useState('')
   const [onlineUsers, SetOnlineUsers] = useState([])
   const [chat, setChat] = useState([])
+  const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
+
+  const myRef = useRef()
+  const executeScroll = () => scrollToRef(myRef)
+
 
   const inputBox = (e) => {
     setMessage(e.target.value)
@@ -26,6 +32,10 @@ const App = () => {
 
   }, [])
 
+  useEffect(() => {
+    executeScroll()
+  }, [chat])
+
   const addNewMessage = e => {
     e.preventDefault()
     if (message === '') {
@@ -40,12 +50,12 @@ const App = () => {
       }
       Socket.emit('BROADCAST_MESSAGE', data)
       setMessage('');
+
     }
   }
 
   Socket.on('RECEIVE_BROADCAST', fromChat => {
     setChat([...chat, fromChat])
-
   })
 
   return (
@@ -89,11 +99,13 @@ const App = () => {
             <Form onSubmit={addNewMessage}>
               <FormGroup>
                 <Input type="textarea" name="text" id="exampleText" onChange={inputBox} value={message} />
-                <button className="btn btn-secondary">Add Message</button>
+                <button className="btn btn-secondary" onClick={executeScroll}>Add Message</button>
               </FormGroup>
             </Form>
           </Col>
         </Row>
+        <div ref={myRef}></div>
+
       </Container>
 
     </>
