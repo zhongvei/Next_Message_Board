@@ -1,8 +1,10 @@
 html {
+    font-family: 'Lemonada', cursive;
     background-color: rgb(53, 53, 83);
 }
 
 #root {
+    font-family: 'Lemonada', cursive;
     background-color: rgb(53, 53, 83);
     color: ivory
 }
@@ -22,5 +24,18 @@ h5 {
 .line {
     border-top: 1px  ;
     border-style: groove;
+}
+
+.dark {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.underline {
+    text-decoration: underline black;
+    padding-bottom: 5px;
+}
+
+input {
+    margin: 10px;
 }
 

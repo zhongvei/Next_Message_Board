@@ -58,7 +58,7 @@ const App = () => {
         </Row>
         <Row>
           <Col sm="12" md={{ size: 6, offset: 3 }}>
-            <h3>Online users</h3>
+            <h3 className="dark">Online users</h3>
             {onlineUsers.map((onlineUser, index) => {
               return (
                 <h5 key={index}>{onlineUser.username}</h5>
@@ -69,11 +69,11 @@ const App = () => {
         </Row>
         <Row>
           <Col sm="12" md={{ size: 6, offset: 3 }}>
-            <h3>Message Board</h3>
+            <h3 className="dark">Message Board</h3>
             {chat.map((log, index) => {
               return (
                 <div className="messageContainer" key={index}>
-                  <h2>{log.username}</h2>
+                  <h2 className="underline">{log.username}</h2>
                   <h3>{log.message}</h3>
                   <hr className="line" />
                   <h6>{Date(log.timestamp)}</h6>
